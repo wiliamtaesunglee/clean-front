@@ -1,4 +1,4 @@
-import { Authentication, AuthenticationParams } from '~/domain/usecases'
+import { AuthenticationParams } from '~/domain/usecases'
 
 import faker from 'faker'
 
