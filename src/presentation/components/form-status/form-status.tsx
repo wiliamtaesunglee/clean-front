@@ -5,8 +5,10 @@ import Spinner from '~/presentation/components/spinner/spinner'
 import Styles from './form-status-styles.scss'
 
 const FormStatus: React.FC = () => {
-  const { isLoading, errorMessage } = useContext(Context)
-
+  const {
+    state: { isLoading },
+    errorState: { errorMessage }
+  } = useContext(Context)
   return (
     <div data-testid="error-wrap" className={Styles.errorWrap}>
       { isLoading && <Spinner />}
