@@ -6,7 +6,7 @@ import Styles from './input-styles.scss'
 type Props = React.DetailedHTMLProps<React.InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 
 const Input: React.FC<Props> = (props: Props) => {
-  const { errorState } = useContext(Context)
+  const { errorState, setState, state } = useContext(Context)
   const error = errorState[props.name]
   const handleFocus = (event: React.FocusEvent<HTMLInputElement>): void => {
     event.target.readOnly = false
@@ -17,9 +17,15 @@ const Input: React.FC<Props> = (props: Props) => {
   const getTitle = (): string => {
     return error
   }
+  const handleChange = (event: React.FocusEvent<HTMLInputElement>): void => {
+    setState({
+      ...state,
+      [event.target.name]: event.target.value
+    })
+  }
   return (
     <div className={Styles.inputWrap}>
-      <input {...props} readOnly onFocus={handleFocus} />
+      <input {...props} data-testid={props.name} readOnly onFocus={handleFocus} onChange={handleChange} />
       <span data-testid={`${props.name}-status`} title={getTitle()} className={Styles.status}>{getStatus()}</span>
     </div>
   )
