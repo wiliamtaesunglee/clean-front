@@ -9,7 +9,7 @@
   .form {
     display: flex;
     flex-direction: column;
-    width: 400px;
+    width: 300px;
     background-color: $white;
     padding: 40px;
     border-radius: 8px;
@@ -24,7 +24,11 @@
     }
 
     .submit {
-      margin-top: 24px;
+      margin-top: 16px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
       &:disabled {
         background-color: $disabled;
