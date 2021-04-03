@@ -8,7 +8,7 @@ interface mockHttpResponseProps {
 }
 
 export const mockHttpRespose = (): mockHttpResponseProps => ({
-  status: faker.random.number(),
+  status: faker.datatype.number(),
   data: faker.random.objectElement()
 })
 
