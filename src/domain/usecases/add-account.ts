@@ -7,5 +7,5 @@ export type AddAccountParams = {
   passwrodConfirmation: string
 }
 export interface AddAccount {
-  auth: (params: AddAccountParams) => Promise<AccountModel>
+  add: (params: AddAccountParams) => Promise<AccountModel>
 }
