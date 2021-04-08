@@ -5,6 +5,7 @@ import {
   Route
 } from 'react-router-dom'
 
+import { Signup } from '~/presentation/pages'
 import '~/presentation/styles/global.scss'
 
 type Props = {
@@ -16,6 +17,7 @@ const Router: React.FC<Props> = ({ makeLogin }: Props) => {
     <BrowserRouter>
       <Switch>
         <Route path="/login" exact component={makeLogin} />
+        <Route path="/signup" exact component={Signup} />
       </Switch>
     </BrowserRouter>
   )
