@@ -13,11 +13,26 @@ import { Validation } from '~/presentation/protocols/validation'
 import Styles from './signup-styles.scss'
 
 const Signup: React.FC = () => {
+  const [state, setState] = useState({
+    isLoading: false,
+    email: '',
+    name: '',
+    password: '',
+    passwordConfirmation: ''
+  })
+  const [errorState, setErrorState] = useState({
+    email: 'Campo obrigatório',
+    name: 'Campo obrigatório',
+    password: 'Campo obrigatório',
+    passwordConfirmation: 'Campo obrigatório',
+    errorMessage: ''
+  })
+
   return (
     <div className={Styles.signup}>
       <LoginHeader />
       <Context.Provider
-      value={{ state: {}, errorState: {} }}
+      value={{ state, errorState }}
       >
         <form className={Styles.form} >
           <h2>Login</h2>
@@ -26,10 +41,14 @@ const Signup: React.FC = () => {
           <Input type="password" name="password" placeholder="Digite sua senha" />
           <Input type="password" name="passwordConfirmation" placeholder="Confirme sua senha" />
           <button
+            disabled={true}
+            data-testid="submit"
             className={Styles.submit}
             type="submit"
-          >Entrar</button>
-          <Link to="/login" className={Styles.link}>Voltar para login</Link>
+          >
+            Entrar
+          </button>
+          <span className={Styles.link}>Voltar para login</span>
           <FormStatus />
         </form>
       </Context.Provider>
