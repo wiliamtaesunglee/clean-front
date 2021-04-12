@@ -12,7 +12,11 @@ import Context from '~/presentation/contexts/form/form-context'
 import { Validation } from '~/presentation/protocols/validation'
 import Styles from './signup-styles.scss'
 
-const Signup: React.FC = () => {
+type Props = {
+  validation: Validation
+}
+
+const Signup: React.FC<Props> = ({ validation }: Props) => {
   const [state, setState] = useState({
     isLoading: false,
     email: '',
@@ -28,11 +32,18 @@ const Signup: React.FC = () => {
     errorMessage: ''
   })
 
+  useEffect(() => {
+    setErrorState({
+      ...errorState,
+      name: validation.validate('name', state.name)
+    })
+  }, [state.name])
+
   return (
     <div className={Styles.signup}>
       <LoginHeader />
       <Context.Provider
-      value={{ state, errorState }}
+      value={{ state, errorState, setState }}
       >
         <form className={Styles.form} >
           <h2>Login</h2>
