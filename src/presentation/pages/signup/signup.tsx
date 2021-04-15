@@ -17,6 +17,7 @@ type Props = {
 }
 
 const Signup: React.FC<Props> = ({ validation }: Props) => {
+  const [disabled, setDisabled] = useState(false)
   const [state, setState] = useState({
     isLoading: false,
     email: '',
@@ -42,6 +43,10 @@ const Signup: React.FC<Props> = ({ validation }: Props) => {
     })
   }, [state.name, state.email, state.password, state.passwordConfirmation])
 
+  useEffect(() => {
+    setDisabled(Object.values(errorState).some(error => Boolean(error)))
+  }, [errorState])
+
   return (
     <div className={Styles.signup}>
       <LoginHeader />
@@ -55,7 +60,7 @@ const Signup: React.FC<Props> = ({ validation }: Props) => {
           <Input type="password" name="password" placeholder="Digite sua senha" />
           <Input type="password" name="passwordConfirmation" placeholder="Confirme sua senha" />
           <button
-            disabled={true}
+            disabled={disabled}
             data-testid="submit"
             className={Styles.submit}
             type="submit"
