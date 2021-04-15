@@ -32,11 +32,6 @@ const makeSut = (params?: SutParams): SutTypes => {
   }
 }
 
-const testElementExists = (sut: RenderResult, fieldName: string): void => {
-  const element = sut.getByTestId(fieldName)
-  expect(element).toBeTruthy()
-}
-
 export const simulateValidSubmit = async (
   sut: RenderResult,
   name = faker.random.word(),
@@ -121,6 +116,6 @@ describe('SIgnup Component', () => {
   test('Should enable submit button if forms is valid', async () => {
     const { sut } = makeSut()
     await simulateValidSubmit(sut)
-    testElementExists(sut, 'spinner')
+    Helper.testElementExists(sut, 'spinner')
   })
 })
