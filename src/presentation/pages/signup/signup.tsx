@@ -47,13 +47,25 @@ const Signup: React.FC<Props> = ({ validation }: Props) => {
     setDisabled(Object.values(errorState).some(error => Boolean(error)))
   }, [errorState])
 
+  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>): Promise<void> => {
+    event.preventDefault()
+    setState(prev => ({
+      ...prev,
+      isLoading: true
+    }))
+  }
+
   return (
     <div className={Styles.signup}>
       <LoginHeader />
       <Context.Provider
       value={{ state, errorState, setState }}
       >
-        <form className={Styles.form} >
+        <form
+          className={Styles.form}
+          aria-label="form"
+          onSubmit={handleSubmit}
+        >
           <h2>Login</h2>
           <Input type="text" name="name" placeholder="Digite seu nome" />
           <Input type="email" name="email" placeholder="Digite seu e-mail" />
