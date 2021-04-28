@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Link, useHistory } from 'react-router-dom'
-import { Authentication, SaveAccessToken } from '~/domain/usecases'
+import { AddAccount } from '~/domain/usecases'
 
 import {
   LoginHeader,
@@ -14,9 +13,10 @@ import Styles from './signup-styles.scss'
 
 type Props = {
   validation: Validation
+  addAccount: AddAccount
 }
 
-const Signup: React.FC<Props> = ({ validation }: Props) => {
+const Signup: React.FC<Props> = ({ validation, addAccount }: Props) => {
   const [disabled, setDisabled] = useState(false)
   const [state, setState] = useState({
     isLoading: false,
@@ -53,6 +53,13 @@ const Signup: React.FC<Props> = ({ validation }: Props) => {
       ...prev,
       isLoading: true
     }))
+    const { name, email, password, passwordConfirmation } = state
+    await addAccount.add({
+      name,
+      email,
+      password,
+      passwordConfirmation
+    })
   }
 
   return (

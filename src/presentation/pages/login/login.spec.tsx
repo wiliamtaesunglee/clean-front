@@ -178,8 +178,4 @@ describe('Login Component', () => {
     expect(history.length).toBe(2)
     expect(history.location.pathname).toBe('/signup')
   })
-
-  // test('Should call AddAccount with correct values', () => {
-  //   const
-  // })
 })
