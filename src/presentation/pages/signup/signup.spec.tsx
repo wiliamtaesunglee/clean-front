@@ -7,43 +7,43 @@ import {
   waitFor,
   fireEvent
 } from '@testing-library/react'
-import { Helper, ValidationStub, AddAccountSpy } from '~/presentation/test'
+import { Router } from 'react-router-dom'
+import { createMemoryHistory } from 'history'
+import { Helper, ValidationStub, AddAccountSpy, SaveAccessTokenMock } from '~/presentation/test'
 import Signup from './signup'
 import { EmailInUseError } from '~/domain/errors'
 
 type SutTypes = {
   sut: RenderResult
   addAccountSpy: AddAccountSpy
+  saveAccessTokenMock: SaveAccessTokenMock
 }
 
 type SutParams = {
   validationError: string
 }
 
+const history = createMemoryHistory({ initialEntries: ['/signup'] })
 const makeSut = (params?: SutParams): SutTypes => {
   const validationStub = new ValidationStub()
   validationStub.errorMessage = params?.validationError
   const addAccountSpy = new AddAccountSpy()
+  const saveAccessTokenMock = new SaveAccessTokenMock()
   const sut = render(
-    <Signup
-      validation={validationStub}
-      addAccount={addAccountSpy}
-    />
+    <Router history={history}>
+      <Signup
+        validation={validationStub}
+        addAccount={addAccountSpy}
+        saveAccessToken={saveAccessTokenMock}
+      />
+    </Router>
   )
 
   return {
     sut,
-    addAccountSpy
+    addAccountSpy,
+    saveAccessTokenMock
   }
-}
-
-const testElementText = (
-  sut: RenderResult,
-  fieldName: string,
-  text: string
-): void => {
-  const element = sut.getByTestId(fieldName)
-  expect(element.textContent).toBe(text)
 }
 
 export const simulateValidSubmit = async (
@@ -167,7 +167,15 @@ describe('Signup Component', () => {
     const error = new EmailInUseError()
     jest.spyOn(addAccountSpy, 'add').mockRejectedValueOnce(error)
     await simulateValidSubmit(sut)
-    testElementText(sut, 'main-error', error.message)
+    Helper.testElementText(sut, 'main-error', error.message)
     Helper.testChildCount(sut, 'error-wrap', 1)
+  })
+
+  test('Should call SaveAccesToken on success', async () => {
+    const { sut, addAccountSpy, saveAccessTokenMock } = makeSut()
+    await simulateValidSubmit(sut)
+    expect(saveAccessTokenMock.accessToken).toBe(addAccountSpy.account.accessToken)
+    expect(history.length).toBe(1)
+    expect(history.location.pathname).toBe('/')
   })
 })
