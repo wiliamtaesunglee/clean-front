@@ -29,6 +29,14 @@ button {
   font-size: 16px;
   border: none;
 
+  &:disabled {
+    background-color: $disabled;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+
   &:hover {
     opacity: 0.9;
   }

@@ -1,7 +1,6 @@
 import { Authentication, AuthenticationParams } from '~/domain/usecases'
 import { AccountModel } from '~/domain/models'
 import { mockAccountModel } from '~/domain/test'
-import { withRouter } from 'react-router'
 
 export class AuthenticationSpy implements Authentication {
   account = mockAccountModel()

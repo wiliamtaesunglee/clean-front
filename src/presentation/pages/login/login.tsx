@@ -6,7 +6,8 @@ import {
   LoginHeader,
   Footer,
   Input,
-  FormStatus
+  FormStatus,
+  SubmitButton
 } from '~/presentation/components'
 import Context from '~/presentation/contexts/form/form-context'
 import { Validation } from '~/presentation/protocols/validation'
@@ -84,12 +85,10 @@ const Login: React.FC<Props> = ({
           <h2>Login</h2>
           <Input type="email" name="email" placeholder="Digite seu e-mail" />
           <Input type="password" name="password" placeholder="Digite sua senha" />
-          <button
-            data-testid="submit"
-            disabled={Boolean(errorState.email || errorState.password)}
-            className={Styles.submit}
-            type="submit"
-          >Entrar</button>
+          <SubmitButton
+            text="Entrar"
+            disabled={!!errorState.email || !!errorState.password || state.isLoading}
+          />
           <Link data-testid="signup" to="/signup" className={Styles.link}>Criar conta</Link>
           <FormStatus />
         </form>

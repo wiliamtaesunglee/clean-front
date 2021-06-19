@@ -29,14 +29,6 @@
       display: flex;
       align-items: center;
       justify-content: center;
-
-      &:disabled {
-        background-color: $disabled;
-
-        &:hover {
-          opacity: 1;
-        }
-      }
     }
 
     .link {
