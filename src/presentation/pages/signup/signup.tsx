@@ -49,9 +49,10 @@ const Signup: React.FC<Props> = ({ validation, addAccount, saveAccessToken }: Pr
     setErrorState({
       ...errorState,
       name: validation.validate('name', formData),
-      email: validation.validate('name', formData),
+      email: validation.validate('email', formData),
       password: validation.validate('password', formData),
-      passwordConfirmation: validation.validate('passwordConfirmation', formData)
+      passwordConfirmation: validation.validate('passwordConfirmation', formData),
+      errorMessage: ''
     })
   }, [state.name, state.email, state.password, state.passwordConfirmation])
 
