@@ -1,5 +1,5 @@
 import { ValidationComposite } from '~/validation/validators'
-import { ValidationBuilder } from '~/validation/validators/validation-composite/builder/validation-builder'
+import { ValidationBuilder } from '~/validation/validators/builder/validation-builder'
 import { makeLoginValidation } from './login-validation-facotry'
 
 describe('LoginValidationFactory', () => {

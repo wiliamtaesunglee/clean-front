@@ -36,10 +36,15 @@ const Login: React.FC<Props> = ({
     errorMessage: ''
   })
   useEffect(() => {
+    const { email, password } = state
+    const formData = {
+      email,
+      password
+    }
     setErrorState({
       ...errorState,
-      email: validation.validate('email', state.email),
-      password: validation.validate('password', state.password)
+      email: validation.validate('email', formData),
+      password: validation.validate('password', formData)
     })
   }, [state.email, state.password])
 
